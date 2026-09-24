@@ -1,0 +1,149 @@
+/* ==============================================================================
+   CARVLAK SUITE CENTRALIZADA - ESTILOS GLOBALES DARK LUXURY
+   Optimizado para iPhone Safari (PWA) y Pantallas de Escritorio
+   ============================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Piazzolla:opsz,wght@8..30,600;8..30,700;8..30,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --color-petrol: #2D3E46;
+  --color-petrol-dark: #1A2429;
+  --color-petrol-light: #3E545F;
+  --color-red: #C0392B;
+  --color-red-hover: #A93226;
+  --color-gold: #D4AF37;
+  --color-bg-dark: #0A0D12;
+  --color-card-dark: #121721;
+  --color-border-dark: #1E2738;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Instrument Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg-dark);
+  color: #F1F5F9;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: calc(var(--safe-bottom) + 5rem);
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding-bottom: 2rem;
+  }
+}
+
+.font-serif {
+  font-family: 'Piazzolla', Georgia, serif;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0E14;
+}
+::-webkit-scrollbar-thumb {
+  background: #252F42;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3B4A66;
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(18, 23, 33, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(22, 28, 41, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.25s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(212, 175, 55, 0.35);
+  transform: translateY(-2px);
+}
+
+/* SVG Car Blueprint Styles */
+.car-part {
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  stroke-width: 1.5;
+}
+
+.car-part:hover {
+  filter: brightness(1.2);
+  stroke-width: 2.5;
+}
+
+.car-part:active {
+  transform: scale(0.99);
+}
+
+.car-part.state-original {
+  fill: #1E293B;
+  stroke: #475569;
+}
+
+.car-part.state-repintada {
+  fill: #854D0E;
+  stroke: #FACC15;
+}
+
+.car-part.state-masillada {
+  fill: #9A3412;
+  stroke: #FB923C;
+}
+
+.car-part.state-danada {
+  fill: #991B1B;
+  stroke: #F87171;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.22s ease-out forwards;
+}
+
+/* Toast Container */
+#toast-container {
+  position: fixed;
+  bottom: calc(var(--safe-bottom) + 5rem);
+  right: 1.25rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  #toast-container {
+    bottom: 2rem;
+  }
+}
+
+.toast-msg {
+  pointer-events: auto;
+  animation: fadeIn 0.25s ease forwards;
+}

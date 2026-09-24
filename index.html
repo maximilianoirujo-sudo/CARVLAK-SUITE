@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>CARVLAK Suite | Sistema Centralizado Automotor & DetailVlak</title>
+  
+  <!-- PWA & Apple Web App Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0B0E14">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CARVLAK">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/x-icon" href="https://dcdn-us.mitiendanube.com/stores/006/928/264/themes/common/logo-1181937392-1762700015-9161ba30a7197fa8fc6cefa80fffb51e1762700015.ico?0">
+
+  <!-- Tailwind CSS & Chart.js CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Google Fonts & Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#0B0E14] text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <!-- ==============================================================================
+       HEADER CENTRALIZADO (DESKTOP & MÓVIL)
+       ============================================================================== -->
+  <header class="glass-panel sticky top-0 z-40 border-b border-slate-800/80 px-4 sm:px-6 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Brand & Status -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-300 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-amber-500/20">
+          C
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-black tracking-widest text-lg text-white">CARVLAK</span>
+            <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">SUITE OS</span>
+          </div>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Automotores • Tasaciones • DetailVlak Shangrilá</p>
+        </div>
+      </div>
+
+      <!-- Selector de Operador & Indicador -->
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-xl">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-xs text-slate-400 hidden md:inline">Operador:</span>
+          <select id="globalOperatorSelect" class="bg-transparent text-xs font-bold text-amber-400 outline-none cursor-pointer">
+            <option value="Maximiliano Irujo" class="bg-slate-900 text-white">Maximiliano Irujo</option>
+            <option value="Jonathan Kaitazoff" class="bg-slate-900 text-white">Jonathan Kaitazoff</option>
+            <option value="Romina (DetailVlak)" class="bg-slate-900 text-white">Romina (DetailVlak)</option>
+            <option value="Cliente (Modo Showroom)" class="bg-slate-900 text-white">Cliente (Modo Showroom)</option>
+          </select>
+        </div>
+
+        <!-- Botón Contacto WhatsApp Rápido -->
+        <a href="https://wa.me/59899267964" target="_blank" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600/90 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md">
+          <span>💬</span> WhatsApp
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Navegación Desktop Tabs (Horizontal) -->
+    <div class="max-w-7xl mx-auto hidden lg:flex items-center gap-2 mt-3 pt-2 border-t border-slate-800/60">
+      <button data-tab-target="hub" class="px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-2">
+        <span>🏠</span> Centro de Mando
+      </button>
+      <button data-tab-target="showroom" class="px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-2">
+        <span>🚗</span> Showroom & Stock
+      </button>
+      <button data-tab-target="patio" class="px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-2">
+        <span>📋</span> Peritaje Patio (&lt;3 min)
+      </button>
+      <button data-tab-target="crm" class="px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-2">
+        <span>💼</span> CRM Tasaciones & Leads
+      </button>
+      <button data-tab-target="detailvlak" class="px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-2">
+        <span>✨</span> DetailVlak (Turnos &amp; Cotizador)
+      </button>
+      <button data-tab-target="marketing" class="px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-2">
+        <span>📊</span> Marketing &amp; Instagram
+      </button>
+    </div>
+  </header>
+
+  <!-- ==============================================================================
+       MAIN CONTAINER
+       ============================================================================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
+
+    <!-- --------------------------------------------------------------------------
+         VISTA 1: HUB / CENTRO DE MANDO
+         -------------------------------------------------------------------------- -->
+    <section id="view-hub" class="space-y-6">
+      
+      <!-- Welcome Banner -->
+      <div class="glass-card p-6 rounded-3xl border border-amber-500/20 relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Ecosistema Integrado</span>
+            <h1 class="text-2xl sm:text-3xl font-black text-white mt-1">
+              Bienvenido a <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">CARVLAK Suite</span>
+            </h1>
+            <p class="text-sm text-slate-400 mt-1 max-w-2xl">
+              Plataforma centralizada con todas las aplicaciones de la automotora: inventario de stock, tasador rápido de patio, bandeja de leads, estética DetailVlak y métricas de redes sociales.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="switchTab('patio')" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg transition-all flex items-center gap-2">
+              <span>📋</span> Nuevo Peritaje Patio
+            </button>
+            <button onclick="switchTab('detailvlak')" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition-all flex items-center gap-2">
+              <span>✨</span> Cotizar Detailing
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-card p-4 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold">Stock en Venta</span>
+            <span class="text-base">🚗</span>
+          </div>
+          <div id="statHubStock" class="text-xl sm:text-2xl font-black text-white">44 unidades</div>
+          <p class="text-[11px] text-emerald-400 mt-1 font-medium">Usados, 0km &amp; Motos</p>
+        </div>
+
+        <div class="glass-card p-4 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold">Valor Inventario</span>
+            <span class="text-base">💰</span>
+          </div>
+          <div id="statHubValue" class="text-xl sm:text-2xl font-black text-amber-400">USD $--</div>
+          <p class="text-[11px] text-slate-400 mt-1">Precios oficiales en plaza</p>
+        </div>
+
+        <div class="glass-card p-4 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold">Prospectos CRM</span>
+            <span class="text-base">📥</span>
+          </div>
+          <div id="statHubLeads" class="text-xl sm:text-2xl font-black text-cyan-400">-- leads</div>
+          <p class="text-[11px] text-slate-400 mt-1">Con fotos y tasación</p>
+        </div>
+
+        <div class="glass-card p-4 rounded-2xl border border-slate-800">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-semibold">Turnos DetailVlak</span>
+            <span class="text-base">✨</span>
+          </div>
+          <div id="statHubTurnos" class="text-xl sm:text-2xl font-black text-purple-400">-- agendados</div>
+          <p class="text-[11px] text-slate-400 mt-1">Taller Shangrilá</p>
+        </div>
+      </div>
+
+      <!-- Módulos / Acceso Rápido -->
+      <div>
+        <h2 class="text-base font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+          <span>🚀</span> Módulos del Sistema
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <!-- Card Showroom -->
+          <div onclick="switchTab('showroom')" class="glass-card p-5 rounded-2xl border border-slate-800 hover:border-amber-500/40 cursor-pointer transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl mb-3">🚗</div>
+              <h3 class="text-base font-bold text-white">Showroom &amp; Stock Digital</h3>
+              <p class="text-xs text-slate-400 mt-1">Catálogo interactivo de 44 unidades reales con fotos HD, simulador bancario uruguayo y reserva de seña online.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-amber-400">
+              <span>Explorar Catálogo</span>
+              <span>→</span>
+            </div>
+          </div>
+
+          <!-- Card Patio -->
+          <div onclick="switchTab('patio')" class="glass-card p-5 rounded-2xl border border-slate-800 hover:border-emerald-500/40 cursor-pointer transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl mb-3">📋</div>
+              <h3 class="text-base font-bold text-white">Peritaje de Patio (&lt; 3 min)</h3>
+              <p class="text-xs text-slate-400 mt-1">Mapa táctil de 15 paneles de carrocería, alerta de chasis y redacción ejecutiva de peritaje directo para Jonathan por WhatsApp.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-emerald-400">
+              <span>Iniciar Inspección</span>
+              <span>→</span>
+            </div>
+          </div>
+
+          <!-- Card CRM -->
+          <div onclick="switchTab('crm')" class="glass-card p-5 rounded-2xl border border-slate-800 hover:border-cyan-500/40 cursor-pointer transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl mb-3">💼</div>
+              <h3 class="text-base font-bold text-white">CRM de Tasaciones &amp; Leads</h3>
+              <p class="text-xs text-slate-400 mt-1">Bandeja de permutas con fotos de Google Drive, algoritmo uruguayo de tasación y plantillas rápidas de WhatsApp.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-cyan-400">
+              <span>Gestionar Leads</span>
+              <span>→</span>
+            </div>
+          </div>
+
+          <!-- Card DetailVlak -->
+          <div onclick="switchTab('detailvlak')" class="glass-card p-5 rounded-2xl border border-slate-800 hover:border-purple-500/40 cursor-pointer transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl mb-3">✨</div>
+              <h3 class="text-base font-bold text-white">DetailVlak Suite</h3>
+              <p class="text-xs text-slate-400 mt-1">Cotizador por tamaño de vehículo en $U, combos oficiales, control de turnos en taller y firma personalizada Maxi / Romi.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-purple-400">
+              <span>Abrir DetailVlak</span>
+              <span>→</span>
+            </div>
+          </div>
+
+          <!-- Card Marketing -->
+          <div onclick="switchTab('marketing')" class="glass-card p-5 rounded-2xl border border-slate-800 hover:border-rose-500/40 cursor-pointer transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center text-xl mb-3">📊</div>
+              <h3 class="text-base font-bold text-white">Marketing &amp; Instagram</h3>
+              <p class="text-xs text-slate-400 mt-1">Métricas de visualizaciones, alcance de reels, engagement y tasa de conversión de seguidores a visitas en el salón.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-rose-400">
+              <span>Ver Estadísticas</span>
+              <span>→</span>
+            </div>
+          </div>
+
+          <!-- Card Ajustes / Información -->
+          <div class="glass-card p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 flex items-center justify-center text-xl mb-3">ℹ️</div>
+              <h3 class="text-base font-bold text-white">Sede &amp; Contactos Clave</h3>
+              <p class="text-xs text-slate-400 mt-1">Showroom &amp; Taller en Av. Giannattasio, Shangrilá, Canelones.<br>WhatsApp Jonathan: +598 99 267 964.<br>Instagram: @car.vlak</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-500">
+              Versión 2.0 • Optimizado para Vercel &amp; iPhone PWA
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Feed de Actividad Reciente -->
+      <div class="glass-card p-5 rounded-2xl border border-slate-800">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-3 flex items-center gap-2">
+          <span>⚡</span> Movimientos Recientes
+        </h3>
+        <div id="hubRecentActivity" class="space-y-2">
+          <!-- Inyectado por JS -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- --------------------------------------------------------------------------
+         VISTA 2: SHOWROOM & CATÁLOGO WEB
+         -------------------------------------------------------------------------- -->
+    <section id="view-showroom" class="hidden space-y-6">
+      
+      <!-- Controles de Búsqueda & Filtros -->
+      <div class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          
+          <!-- Input Búsqueda -->
+          <div class="relative flex-1">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
+            <input type="text" id="showroomSearchInput" placeholder="Buscar por marca, modelo o año (ej: Hilux, BMW, 2021)..." class="w-full pl-10 pr-4 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:border-amber-500/60 focus:outline-none">
+          </div>
+
+          <!-- Select Marca -->
+          <div class="w-full md:w-56">
+            <select id="showroomBrandSelect" class="w-full py-2.5 px-3 bg-slate-900/90 border border-slate-800 rounded-xl text-xs font-bold text-slate-200 outline-none">
+              <!-- Inyectado por JS -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Filtros Rápidos de Categoría -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
+          <div class="flex flex-wrap items-center gap-2">
+            <button data-showroom-cat="all" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 transition-all">Todos</button>
+            <button data-showroom-cat="usados" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800/80 text-slate-300 hover:bg-slate-700 transition-all">Usados Seleccionados</button>
+            <button data-showroom-cat="electricos" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800/80 text-slate-300 hover:bg-slate-700 transition-all">Eléctricos 0km</button>
+            <button data-showroom-cat="motos" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800/80 text-slate-300 hover:bg-slate-700 transition-all">Motos</button>
+            <button data-showroom-cat="4x4" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800/80 text-slate-300 hover:bg-slate-700 transition-all">4x4 &amp; Pickups</button>
+          </div>
+
+          <!-- Slider de Precio Máximo -->
+          <div class="flex items-center gap-3">
+            <span id="showroomPriceDisplay" class="text-xs font-bold text-amber-400">Hasta USD $100.000</span>
+            <input type="range" id="showroomPriceRange" min="5000" max="100000" step="5000" value="100000" class="w-28 sm:w-36 accent-amber-500">
+          </div>
+        </div>
+      </div>
+
+      <!-- Resumen de resultados -->
+      <div class="flex items-center justify-between px-1">
+        <span id="showroomMatchCount" class="text-xs font-bold text-slate-400">44 unidades encontradas</span>
+        <span class="text-xs text-slate-500">Imágenes oficiales Tiendanube HD</span>
+      </div>
+
+      <!-- Grid de Vehículos -->
+      <div id="showroomGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Inyectado por JS -->
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------------
+         VISTA 3: PERITAJE DE PATIO (< 3 MINUTOS)
+         -------------------------------------------------------------------------- -->
+    <section id="view-patio" class="hidden space-y-6">
+      
+      <!-- Header del Peritaje -->
+      <div class="glass-card p-5 rounded-2xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Patio Edition</span>
+          <h2 class="text-xl sm:text-2xl font-black text-white mt-0.5">Inspección Rápida de Vehículo (&lt; 3 min)</h2>
+          <p class="text-xs text-slate-400 mt-1">Evaluá el auto que trajo el cliente y mandale el reporte ejecutivo directo a Jonathan por WhatsApp.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btnPatioReset" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold border border-slate-700">
+            🔄 Resetear Todo
+          </button>
+          <button onclick="sendPatioReportToJonathan()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg flex items-center gap-2">
+            <span>💬</span> Reporte a Jonathan
+          </button>
+        </div>
+      </div>
+
+      <!-- Alerta de Daño Estructural (Largueros / Chasis / Airbags) -->
+      <div class="glass-card p-4 rounded-2xl border border-slate-800 transition-all" id="patioStructuralCard">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🚨</span>
+            <div>
+              <h3 class="text-sm font-bold text-white">¿Tiene Daño Estructural o Airbags Detonados?</h3>
+              <p class="text-xs text-slate-400">Puntas de chasis, largueros, panel parallamas, piso de baúl arrugado o airbags reemplazados.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="btnPatioStructNo" onclick="setStructuralDamage(false)" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-lg">
+              NO (Sano)
+            </button>
+            <button id="btnPatioStructYes" onclick="setStructuralDamage(true)" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-900 hover:bg-slate-800">
+              SÍ (Tocó Chasis)
+            </button>
+          </div>
+        </div>
+
+        <div id="patioStructuralBox" class="hidden mt-3 pt-3 border-t border-rose-500/30 text-xs text-rose-300">
+          ⚠️ <strong>ATENCIÓN:</strong> El vehículo presenta compromiso estructural. Esto se resaltará en rojo en el reporte de WhatsApp para Jonathan y se aplicará penalización del 22% sobre el valor de toma.
+        </div>
+      </div>
+
+      <!-- Datos del Auto & Datos del Cliente -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        
+        <!-- Ficha Rápida del Auto -->
+        <div class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-3">
+          <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">1. Ficha del Vehículo en Patio</h3>
+          
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <div>
+              <label class="block text-slate-400 mb-1 font-semibold">Marca *</label>
+              <input type="text" id="patioCarMarca" placeholder="Ej: Volkswagen, Toyota..." class="w-full bg-slate-900/90 border border-slate-800 rounded-xl p-2 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1 font-semibold">Modelo *</label>
+              <input type="text" id="patioCarModelo" placeholder="Ej: Gol Trend, Hilux..." class="w-full bg-slate-900/90 border border-slate-800 rounded-xl p-2 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1 font-semibold">Año *</label>
+              <input type="number" id="patioCarAno" placeholder="Ej: 2018" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl p-2 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1 font-semibold">Kilometraje Real *</label>
+              <input type="number" id="patioCarKm" placeholder="Ej: 78000" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl p-2 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1 font-semibold">Matrícula</label>
+              <input type="text" id="patioCarMatricula" placeholder="Ej: SBX 1234" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl p-2 text-white uppercase">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1 font-semibold">Pretendido por Cliente (USD)</label>
+              <input type="number" id="patioClientPretended" placeholder="Ej: 11000" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl p-2 text-white">
+            </div>
+          </div>
+        </div>
+
+        <!-- Datos del Cliente -->
+        <div class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-3">
+          <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">2. Cliente Presente en el Local</h3>
+          
+          <div class="space-y-3 text-xs">
+            <div>
+              <label class="block text-slate-400 mb-1 font-semibold">Nombre y Apellido</label>
+              <input type="text" id="patioClientName" placeholder="Ej: Juan Pérez" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl p-2 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1 font-semibold">Teléfono / WhatsApp</label>
+              <input type="tel" id="patioClientPhone" placeholder="Ej: 099 123 456" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl p-2 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1 font-semibold">Papeles / Títulos</label>
+              <select id="patioClientDocs" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl p-2 text-white">
+                <option value="Titular con títulos a su nombre">Titular con títulos a su nombre</option>
+                <option value="Títulos a nombre de tercero (con poder)">Títulos a nombre de tercero (con poder)</option>
+                <option value="Libreta de propiedad y compraventa">Libreta de propiedad y compraventa</option>
+                <option value="Prendado / Deuda con banco">Prendado / Deuda bancaria</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MAPA INTERACTIVO DE CARROCERÍA (15 PANELES) -->
+      <div class="glass-card p-4 sm:p-6 rounded-2xl border border-slate-800 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <span>🎨</span> Mapa Interactivo de Carrocería &amp; Pintura
+            </h3>
+            <p class="text-xs text-slate-400">Tocá cada panel en el auto o en la lista para rotar su estado.</p>
+          </div>
+
+          <!-- Leyenda de colores -->
+          <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold">
+            <span class="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">Original</span>
+            <span class="px-2 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">Repintada</span>
+            <span class="px-2 py-1 rounded bg-orange-500/20 text-orange-300 border border-orange-500/40">Masilla</span>
+            <span class="px-2 py-1 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">Dañada</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- Diagrama SVG Blueprint -->
+          <div class="lg:col-span-6 flex flex-col items-center bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
+            <div class="w-full flex justify-between text-xs font-bold text-slate-500 mb-2">
+              <span>⬆️ FRENTE</span>
+              <span id="patioPanelsCountBadge" class="text-amber-400 font-extrabold">0 piezas</span>
+            </div>
+
+            <!-- SVG CAR BLUEPRINT -->
+            <div class="relative w-full max-w-[280px] aspect-[1/2]">
+              <svg viewBox="0 0 300 600" class="w-full h-full select-none" id="carSvgMap">
+                <ellipse cx="150" cy="300" rx="120" ry="260" fill="#121721" opacity="0.6"/>
+                <rect x="24" y="90" width="22" height="60" rx="6" fill="#0B0E14"/>
+                <rect x="254" y="90" width="22" height="60" rx="6" fill="#0B0E14"/>
+                <rect x="24" y="440" width="22" height="60" rx="6" fill="#0B0E14"/>
+                <rect x="254" y="440" width="22" height="60" rx="6" fill="#0B0E14"/>
+
+                <!-- Paneles Interactivos -->
+                <path id="part-paragolpes_del" class="car-part state-original" d="M 60 40 C 90 20, 210 20, 240 40 C 255 52, 255 70, 245 78 C 210 65, 90 65, 55 78 C 45 70, 45 52, 60 40 Z"/>
+                <path id="part-capo" class="car-part state-original" d="M 62 82 C 100 75, 200 75, 238 82 L 244 195 C 190 200, 110 200, 56 195 Z"/>
+                <path id="part-parabrisas" class="car-part state-original" d="M 64 205 C 110 207, 190 207, 236 205 L 226 265 C 180 263, 120 263, 74 265 Z"/>
+                <path id="part-techo" class="car-part state-original" d="M 76 273 C 120 271, 180 271, 224 273 L 222 395 C 180 397, 120 397, 78 395 Z"/>
+                <path id="part-luneta" class="car-part state-original" d="M 76 403 C 120 401, 180 401, 224 403 L 232 455 C 185 457, 115 457, 68 455 Z"/>
+                <path id="part-baul" class="car-part state-original" d="M 66 463 C 115 465, 185 465, 234 463 L 238 535 C 190 542, 110 542, 62 535 Z"/>
+                <path id="part-paragolpes_tras" class="car-part state-original" d="M 58 543 C 110 550, 190 550, 242 543 C 255 555, 250 575, 235 582 C 190 590, 110 590, 65 582 C 50 575, 45 555, 58 543 Z"/>
+
+                <!-- Lateral Izquierdo -->
+                <path id="part-guardabarros_del_izq" class="car-part state-original" d="M 52 80 L 60 82 L 54 195 L 42 190 C 38 150, 42 110, 52 80 Z"/>
+                <path id="part-puerta_del_izq" class="car-part state-original" d="M 42 198 L 62 203 L 72 325 L 44 325 C 40 280, 40 240, 42 198 Z"/>
+                <path id="part-puerta_tras_izq" class="car-part state-original" d="M 44 333 L 74 333 L 74 445 L 44 445 C 42 410, 42 370, 44 333 Z"/>
+                <path id="part-guardabarros_tras_izq" class="car-part state-original" d="M 44 453 L 64 458 L 58 538 L 48 530 C 42 505, 42 475, 44 453 Z"/>
+
+                <!-- Lateral Derecho -->
+                <path id="part-guardabarros_del_der" class="car-part state-original" d="M 248 80 C 258 110, 262 150, 258 190 L 246 195 L 240 82 Z"/>
+                <path id="part-puerta_del_der" class="car-part state-original" d="M 258 198 C 260 240, 260 280, 256 325 L 228 325 L 238 203 Z"/>
+                <path id="part-puerta_tras_der" class="car-part state-original" d="M 256 333 C 258 370, 258 410, 256 445 L 226 445 L 226 333 Z"/>
+                <path id="part-guardabarros_tras_der" class="car-part state-original" d="M 256 453 C 258 475, 258 505, 252 530 L 242 538 L 236 458 Z"/>
+
+                <text x="150" y="140" text-anchor="middle" font-size="11" font-weight="bold" fill="#64748B" pointer-events="none">CAPÓ</text>
+                <text x="150" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#64748B" pointer-events="none">TECHO</text>
+                <text x="150" y="500" text-anchor="middle" font-size="11" font-weight="bold" fill="#64748B" pointer-events="none">BAÚL</text>
+              </svg>
+            </div>
+
+            <div class="w-full flex justify-between text-xs font-bold text-slate-500 mt-2">
+              <span>⬇️ ATRÁS</span>
+              <span id="patioPanelsDetailText" class="text-emerald-400 font-medium text-xs">Carrocería 100% original</span>
+            </div>
+          </div>
+
+          <!-- Controles de Números & Oferta en Mano -->
+          <div class="lg:col-span-6 space-y-4">
+            
+            <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3 text-xs">
+              <h4 class="font-bold text-amber-400 uppercase tracking-wider">Calculadora de Reacondicionamiento</h4>
+              
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-slate-400 mb-1">Precio Mercado Referencia (USD)</label>
+                  <input type="number" id="patioRefPrice" placeholder="Ej: 12500" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-white font-bold">
+                </div>
+                <div>
+                  <label class="block text-slate-400 mb-1">Deuda SUCIVE / Multas (USD)</label>
+                  <input type="number" id="patioSuciveDebt" placeholder="Ej: 0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-white">
+                </div>
+                <div>
+                  <label class="block text-slate-400 mb-1">Mecánica / Service (USD)</label>
+                  <input type="number" id="patioMechCost" placeholder="Ej: 0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-white">
+                </div>
+                <div>
+                  <label class="block text-slate-400 mb-1">Cubiertas Nuevas (USD)</label>
+                  <input type="number" id="patioTiresCost" placeholder="Ej: 0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-white">
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
+                <span class="text-slate-400">Costo de Chapa &amp; Pintura por Panel:</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-slate-400">USD $</span>
+                  <input type="number" id="patioCostPerPanel" class="w-16 bg-slate-950 border border-slate-700 rounded-lg p-1 text-center font-bold text-white">
+                </div>
+              </div>
+            </div>
+
+            <!-- Caja Resumen de Oferta -->
+            <div class="glass-card p-5 rounded-2xl border border-emerald-500/30 space-y-2">
+              <div class="flex justify-between text-xs text-slate-400">
+                <span>Chapa y Pintura a Reacondicionar:</span>
+                <span id="patioCalcPaint" class="text-white font-semibold">USD $0 (0 paneles)</span>
+              </div>
+              <div class="flex justify-between text-xs text-slate-400">
+                <span>Total Deducciones &amp; Margen (15%):</span>
+                <span id="patioCalcDeductions" class="text-rose-400 font-semibold">- USD $0</span>
+              </div>
+              <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-400">Oferta en Mano Sugerida</div>
+                  <div class="text-[10px] text-emerald-400">Para cerrar con el cliente</div>
+                </div>
+                <div id="patioCalcFinalOffer" class="text-2xl font-black text-emerald-400">USD $0</div>
+              </div>
+
+              <button onclick="sendPatioReportToJonathan()" class="w-full mt-3 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg transition-all flex items-center justify-center gap-2">
+                <span>💬</span> Enviar Peritaje a Jonathan (+598 99 267 964)
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- --------------------------------------------------------------------------
+         VISTA 4: CRM DE TASACIONES & LEADS
+         -------------------------------------------------------------------------- -->
+    <section id="view-crm" class="hidden space-y-6">
+      
+      <!-- Controles de CRM -->
+      <div class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest">Bandeja Comercial</span>
+            <h2 class="text-xl sm:text-2xl font-black text-white mt-0.5">Prospectos de Tasación &amp; Permuta</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="crmLeadsCount" class="text-xs font-bold px-3 py-1 rounded-xl bg-slate-800 text-cyan-400 border border-slate-700">60 prospectos</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
+          <!-- Búsqueda -->
+          <div class="relative flex-1">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
+            <input type="text" id="crmSearchInput" placeholder="Buscar por cliente, modelo o teléfono..." class="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+          </div>
+
+          <!-- Filtros de Prioridad -->
+          <div class="flex items-center gap-2">
+            <button data-crm-priority="all" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 transition-all">Todos</button>
+            <button data-crm-priority="con_fotos" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">Con Fotos</button>
+            <button data-crm-priority="tasado" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">Tasados</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid de Leads -->
+      <div id="crmLeadsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Inyectado por JS -->
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------------------------
+         VISTA 5: DETAILVLAK SUITE (PRESUPUESTOS & TURNOS)
+         -------------------------------------------------------------------------- -->
+    <section id="view-detailvlak" class="hidden space-y-6">
+      
+      <!-- Header DetailVlak -->
+      <div class="glass-card p-5 rounded-2xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">DetailVlak Shangrilá</span>
+            <span class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full border border-purple-500/30">Taller Oficial</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-white mt-0.5">Cotizador de Detailing &amp; Control de Turnos</h2>
+          <p class="text-xs text-slate-400 mt-1">Av. Giannattasio, Shangrilá, Canelones • Maxi &amp; Romi</p>
+        </div>
+
+        <!-- Combos rápidos -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button data-detail-combo="combo-reventa" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700">
+            🔥 Combo Reventa
+          </button>
+          <button data-detail-combo="combo-espejo" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700">
+            💎 Combo Cerámico
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Cotizador Izquierda -->
+        <div class="lg:col-span-7 space-y-4">
+          
+          <!-- Selector Porte de Auto -->
+          <div class="glass-card p-4 rounded-2xl border border-slate-800 space-y-2">
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">1. Porte / Tamaño del Vehículo</label>
+            <div class="grid grid-cols-5 gap-2 text-center">
+              <button data-detail-size="chico" class="py-2 rounded-xl text-xs bg-slate-800 text-slate-300 hover:bg-slate-700">
+                <span class="block text-base">🚗</span> Chico
+              </button>
+              <button data-detail-size="mediano" class="py-2 rounded-xl text-xs bg-amber-500 text-slate-950 font-bold">
+                <span class="block text-base">🚙</span> Mediano
+              </button>
+              <button data-detail-size="suv" class="py-2 rounded-xl text-xs bg-slate-800 text-slate-300 hover:bg-slate-700">
+                <span class="block text-base">🚐</span> SUV
+              </button>
+              <button data-detail-size="pickup" class="py-2 rounded-xl text-xs bg-slate-800 text-slate-300 hover:bg-slate-700">
+                <span class="block text-base">🛻</span> Pickup
+              </button>
+              <button data-detail-size="moto" class="py-2 rounded-xl text-xs bg-slate-800 text-slate-300 hover:bg-slate-700">
+                <span class="block text-base">🏍️</span> Moto
+              </button>
+            </div>
+          </div>
+
+          <!-- Servicios Checklist -->
+          <div class="glass-card p-4 rounded-2xl border border-slate-800 space-y-2">
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">2. Servicios a Cotizar</label>
+            <div id="detailTariffsList" class="space-y-2">
+              <!-- Inyectado por JS -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Panel de Presupuesto & WhatsApp Derecha -->
+        <div class="lg:col-span-5 space-y-4">
+          
+          <!-- Datos del Cliente -->
+          <div class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-3">
+            <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Datos para el Presupuesto</h4>
+            
+            <div class="space-y-2.5 text-xs">
+              <div>
+                <label class="block text-slate-400 mb-1">Nombre del Cliente</label>
+                <input type="text" id="detailClientName" placeholder="Ej: Nicolás Varela" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-white">
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">Vehículo (Marca, Modelo, Año)</label>
+                <input type="text" id="detailClientVehicle" placeholder="Ej: BMW Serie 3 2021" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-white">
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">WhatsApp del Cliente</label>
+                <input type="tel" id="detailClientPhone" placeholder="Ej: 099 456 789" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-white">
+              </div>
+            </div>
+
+            <!-- Resumen de Costo -->
+            <div class="pt-3 border-t border-slate-800 space-y-1.5 text-xs">
+              <div class="flex justify-between text-slate-400">
+                <span>Subtotal:</span>
+                <span id="detailSubtotal" class="text-white font-bold">$U 0</span>
+              </div>
+              <div class="flex justify-between text-slate-400">
+                <span>Descuento / Combo:</span>
+                <span id="detailDiscount" class="text-emerald-400 font-bold">$U 0</span>
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-sm">
+                <span class="font-bold text-white">Total Final:</span>
+                <span id="detailFinalTotal" class="text-xl font-black text-amber-400">$U 0</span>
+              </div>
+            </div>
+
+            <button onclick="sendDetailVlakWhatsAppQuote()" class="w-full mt-3 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shadow-lg transition-all flex items-center justify-center gap-2">
+              <span>💬</span> Enviar Presupuesto por WhatsApp
+            </button>
+          </div>
+
+          <!-- Agenda de Turnos -->
+          <div class="glass-card p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-3">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center justify-between">
+              <span>📅 Próximos Turnos Agendados</span>
+              <span class="text-[10px] text-purple-400">Shangrilá</span>
+            </h4>
+            <div id="detailTurnosContainer" class="space-y-2">
+              <!-- Inyectado por JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- --------------------------------------------------------------------------
+         VISTA 6: MARKETING & INSTAGRAM DASHBOARD
+         -------------------------------------------------------------------------- -->
+    <section id="view-marketing" class="hidden space-y-6">
+      
+      <!-- Header Marketing -->
+      <div class="glass-card p-5 rounded-2xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-2xl shadow-lg shadow-rose-900/30">
+            📸
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-base font-bold text-white">@car.vlak</span>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">Instagram Insights</span>
+            </div>
+            <p class="text-xs text-slate-400">Rendimiento de reels, visualizaciones y captación de compradores.</p>
+          </div>
+        </div>
+
+        <a href="https://instagram.com/car.vlak" target="_blank" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 flex items-center gap-2">
+          <span>↗️</span> Abrir Instagram
+        </a>
+      </div>
+
+      <!-- KPI Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-card p-4 rounded-2xl border border-slate-800">
+          <div class="text-xs text-slate-400 mb-1">Reproducciones Totales</div>
+          <div id="mktStatViews" class="text-2xl font-black text-amber-400">--</div>
+          <p class="text-[10px] text-slate-500 mt-1">Reels analizados</p>
+        </div>
+        <div class="glass-card p-4 rounded-2xl border border-slate-800">
+          <div class="text-xs text-slate-400 mb-1">Cuentas Alcanzadas</div>
+          <div id="mktStatReach" class="text-2xl font-black text-white">--</div>
+          <p class="text-[10px] text-emerald-400 mt-1">92% público de Uruguay</p>
+        </div>
+        <div class="glass-card p-4 rounded-2xl border border-slate-800">
+          <div class="text-xs text-slate-400 mb-1">Likes &amp; Interacciones</div>
+          <div id="mktStatLikes" class="text-2xl font-black text-rose-400">--</div>
+          <p class="text-[10px] text-slate-500 mt-1">Engagement 4.8%</p>
+        </div>
+        <div class="glass-card p-4 rounded-2xl border border-slate-800">
+          <div class="text-xs text-slate-400 mb-1">Consultas / Leads</div>
+          <div id="mktStatLeads" class="text-2xl font-black text-emerald-400">--</div>
+          <p class="text-[10px] text-slate-500 mt-1">Directos a WhatsApp</p>
+        </div>
+      </div>
+
+      <!-- Gráfico de Reproducciones y Leads -->
+      <div class="glass-card p-5 rounded-2xl border border-slate-800 space-y-3">
+        <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Rendimiento por Publicación</h3>
+        <div class="h-64 sm:h-72 w-full">
+          <canvas id="mktChartViews"></canvas>
+        </div>
+      </div>
+
+      <!-- Tabla de Videos -->
+      <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+        <div class="p-4 border-b border-slate-800">
+          <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Top Reels Más Vistos</h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900/80 text-slate-400 uppercase font-semibold">
+              <tr>
+                <th class="py-3 px-4">Video / Título</th>
+                <th class="py-3 px-4">Categoría</th>
+                <th class="py-3 px-4">Vistas</th>
+                <th class="py-3 px-4">Leads</th>
+                <th class="py-3 px-4">Fecha</th>
+              </tr>
+            </thead>
+            <tbody id="mktReelsTableBody" class="divide-y divide-slate-800/60">
+              <!-- Inyectado por JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==============================================================================
+       BOTTOM NAVIGATION BAR (MÓVILES / IPHONE SAFARI)
+       ============================================================================== -->
+  <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-panel border-t border-slate-800/80 px-2 py-2 flex items-center justify-around">
+    <button data-tab-target="hub" class="flex flex-col items-center gap-1 text-[10px] font-bold text-amber-400 py-1 px-2 rounded-lg">
+      <span class="text-base">🏠</span>
+      <span>Hub</span>
+    </button>
+    <button data-tab-target="showroom" class="flex flex-col items-center gap-1 text-[10px] font-bold text-slate-400 py-1 px-2 rounded-lg">
+      <span class="text-base">🚗</span>
+      <span>Stock</span>
+    </button>
+    <button data-tab-target="patio" class="flex flex-col items-center gap-1 text-[10px] font-bold text-slate-400 py-1 px-2 rounded-lg">
+      <span class="text-base">📋</span>
+      <span>Patio</span>
+    </button>
+    <button data-tab-target="crm" class="flex flex-col items-center gap-1 text-[10px] font-bold text-slate-400 py-1 px-2 rounded-lg">
+      <span class="text-base">💼</span>
+      <span>Leads</span>
+    </button>
+    <button data-tab-target="detailvlak" class="flex flex-col items-center gap-1 text-[10px] font-bold text-slate-400 py-1 px-2 rounded-lg">
+      <span class="text-base">✨</span>
+      <span>Detail</span>
+    </button>
+    <button data-tab-target="marketing" class="flex flex-col items-center gap-1 text-[10px] font-bold text-slate-400 py-1 px-2 rounded-lg">
+      <span class="text-base">📊</span>
+      <span>Mkt</span>
+    </button>
+  </nav>
+
+  <!-- ==============================================================================
+       MODAL: FICHA TÉCNICA & FINANCIACIÓN
+       ============================================================================== -->
+  <div id="vehicleDetailModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+    <div class="glass-card w-full max-w-3xl rounded-3xl p-5 sm:p-6 border border-slate-700/80 my-auto relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeVehicleDetailModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center text-sm font-bold">
+        ✕
+      </button>
+      <div id="vehicleDetailContent">
+        <!-- Inyectado por JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- ==============================================================================
+       SCRIPTS
+       ============================================================================== -->
+  <script src="js/vehicles.js"></script>
+  <script src="js/data-crm.js"></script>
+  <script src="js/data-detailvlak.js"></script>
+  <script src="js/data-marketing.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
