@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "carvlak-suite",
   "cleanUrls": true,
   "headers": [
     {
@@ -10,21 +11,8 @@
           "value": "nosniff"
         },
         {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
-      ]
-    },
-    {
-      "source": "/(manifest.json|sw.js|icons/(.*))",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
         }
       ]
     }
